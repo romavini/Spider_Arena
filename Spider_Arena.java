@@ -27,7 +27,7 @@ class Spider_Arena{
 			int G 			= 20;
 			int cont 		= 0;
 			int prob   		= 0;
-			int dice		= 20; //dado rolado para perseguição do monstro
+			int dice		= 20;
 			int YOUCANTSTOP = 0;
 			int i 			= 0;
 			int j 			= 0;
@@ -74,15 +74,10 @@ class Spider_Arena{
 
 				if (start == true) {	
 					prob = gerador.nextInt(27);
-					//prob = 20;
-					//System.out.println(prob+"<---"); //------------------------------------------
-					//System.out.println("u: "+u+" v: "+v+" i: "+i+" j: "+j+" mira_x: "+mira_x+" mira_y: "+mira_y);
 
 					if (prob > 11) {
 						if (B_M > 0) {
 							B_M--;
-							//prob = gerador.nextInt(8);
-							//prob = 1;
 							if (u < i){
 								if (v < j) {
 									mira_y = (i-u);
@@ -176,7 +171,7 @@ class Spider_Arena{
 							}
 
 
-							//System.out.println("shot--->"+shot); //------------------------------------------
+							
 							switch (shot){
 								case 0: // Atirar para direita/centro
 								for (int h = v; h < Limx; h++) {
@@ -250,7 +245,6 @@ class Spider_Arena{
 							}
 						}
 
-					//prob = 20;
 					if (prob < 4) {
 						if (u < i) {	
 							if (gerador.nextInt(dice) == 0) {
@@ -340,7 +334,7 @@ class Spider_Arena{
 					if (cont_T_M == 1) {
 						P[c][d] = "0+0";
 						P[u][v] = "0M0";	
-				//System.out.println("Teste 1"); //------------------------------------------
+				
 					} else{
 						P[c][d] = "   ";
 						P[u][v] = " M ";
@@ -392,9 +386,9 @@ class Spider_Arena{
 															v = (Limx-1);
 															P[u][v] = " M ";
 														}
-														//System.out.println("Teste 4 g: "+g+" h: "+h); //------------------------------------------
+														
 														P[g][h] = " * ";
-														//System.out.println("Teste 5 g: "+g+" h: "+h); //------------------------------------------
+														
 													}
 												}	
 											}
@@ -573,7 +567,7 @@ class Spider_Arena{
 							P[g][h] = " * ";
 						}
 					}
-					//System.out.println("Teste 5 g: "+g+" h: "+h); //------------------------------------------
+					
 				}	
 			}
 			P[i][j] = "#H#";
@@ -583,7 +577,7 @@ class Spider_Arena{
 			Pontos++;
 			for (int g = 0; g < Limy; g++) {
 				for (int h = 0; h < Limx; h++) {
-					//System.out.println("Teste 4 g: "+g+" h: "+h); //------------------------------------------
+					
 					dist = Math.sqrt((u-g)*(u-g)+(v-h)*(v-h));
 					if (dist <= 3) {
 						P[g][h] = " * ";
