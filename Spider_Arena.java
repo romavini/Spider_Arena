@@ -27,7 +27,7 @@ class Spider_Arena{
 			int G 			= 20;
 			int cont 		= 0;
 			int prob   		= 0;
-			int dice		= 20; //dado rolado para perseguição do monstro
+			int dice		= 20;
 			int YOUCANTSTOP = 0;
 			int i 			= 0;
 			int j 			= 0;
@@ -74,7 +74,6 @@ class Spider_Arena{
 
 				if (start == true) {	
 					prob = gerador.nextInt(27);
-					
 					if (prob > 11) {
 						if (B_M > 0) {
 							B_M--;
@@ -169,6 +168,7 @@ class Spider_Arena{
 									}
 								}
 							}
+
 
 							switch (shot){
 								case 0: // Atirar para direita/centro
@@ -331,7 +331,9 @@ class Spider_Arena{
 				} else{
 					if (cont_T_M == 1) {
 						P[c][d] = "0+0";
+						P[u][v] = "0M0";	
 						P[u][v] = "0M0";					
+
 					} else{
 						P[c][d] = "   ";
 						P[u][v] = " M ";
@@ -383,7 +385,13 @@ class Spider_Arena{
 															v = (Limx-1);
 															P[u][v] = " M ";
 														}
+
+														
+														P[g][h] = " * ";
+														
+
 														P[g][h] = " * ";														
+
 													}
 												}	
 											}
@@ -562,6 +570,7 @@ class Spider_Arena{
 							P[g][h] = " * ";
 						}
 					}
+
 				}	
 			}
 			P[i][j] = "#H#";
@@ -571,6 +580,7 @@ class Spider_Arena{
 			Pontos++;
 			for (int g = 0; g < Limy; g++) {
 				for (int h = 0; h < Limx; h++) {
+
 					dist = Math.sqrt((u-g)*(u-g)+(v-h)*(v-h));
 					if (dist <= 3) {
 						P[g][h] = " * ";
