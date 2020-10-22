@@ -1,624 +1,612 @@
 import java.util.Random;
 import java.io.*;
+
 class Spider_Arena{
-	static int V 			= 3;
-	static int Pontos		= 0;
-	public static void main (String args[]){
-		BufferedReader entrada;
-		entrada = new BufferedReader(new InputStreamReader(System.in));
-		Random gerador = new Random();
-		try{
-			int Limy = 23;
-			int Limx = 19;
-			String 	P[][] 	= new String  [Limy][Limx];
-			boolean P_1[][] = new boolean [Limy][Limx];
+    static int vidas = 3;
+    static int pontos = 0;
 
-			for (int i = 0; i < Limy; i++) {
-				for (int j = 0; j < Limx; j++) {
-					P[i][j] = "   ";
-				}
-			}
+    public static void main (String[] args){
+        BufferedReader entrada;
+        entrada = new BufferedReader(new InputStreamReader(System.in));
+        Random gerador = new Random();
+        try{
+            int limy = 23;
+            int limx = 19;
+            String[][] player = new String  [limy][limx];
+            boolean[][] P_1 = new boolean [limy][limx];
 
-			double dist		= 0;
-			int T_M			= 60;
-			int T 			= 7;
-			int B_M			= 1000;
-			int B 			= 20;
-			int G 			= 20;
-			int cont 		= 0;
-			int prob   		= 0;
-			int dice		= 20;
-			int YOUCANTSTOP = 0;
-			int i 			= 0;
-			int j 			= 0;
-			int u 			= (Limy-1);
-			int v 			= (Limx-1);
-			int a, b, c, d, cont_G, cont_T, cont_T_M, shot, mira_x, mira_y;
-			boolean start = false;
+            for (int i = 0; i < limy; i++) {
+                for (int j = 0; j < limx; j++) {
+                    player[i][j] = "   ";
+                }
+            }
 
-			String D = " ";
-			String ERRO = " ";
+            double dist;
+            int T_M	= 60;
+            int teleport = 7;
+            int B_M	= 1000;
+            int bombs = 20;
+            int mines = 20;
+            int cont = 0;
+            int prob;
+            int dice = 20;
+            int YOUCANTSTOP;
+            int i = 0;
+            int j = 0;
+            int u = (limy-1);
+            int v = (limx-1);
+            int a, b, c, d, cont_G, cont_T, cont_T_M, shot, mira_x, mira_y;
+            boolean start = false;
 
-
-			while(V > 0 && cont <= 200 && Pontos <= 10){
-
-			if (cont != 0) {
-				start = true;
-			}
-
-				for (int g = 0; g < Limy; g++) {
-					for (int h = 0; h < Limx; h++) {
-						if (P_1[g][h] == true) {
-							P[g][h] = " ~ ";
-						} else{
-							P[g][h] = "   ";
-						}
-					}
-				}
-
-				P[u][v]  = " M ";
-				P[i][j]  = " H ";
-				cont_T   = 0;
-				cont_T_M = 0;
-				cont_G 	 = 0;
-				shot     = 10;
-				YOUCANTSTOP = 0;
-				dist = Math.sqrt(((i-u)*(i-u))+((j-v)*(j-v)));
-				double dist1 = (((i-u)*(i-u))+((j-v)*(j-v)));
-				String ops = Double.toString(dist1);
-				String ops1 = Double.toString(dist);
-				ERRO = "i: "+i+" j: "+j+" u: "+u+" v: "+v+" sqrt of: "+ops+" and end of: "+ops1;
-
-				c = u;
-				d = v;
-
-				if (start == true) {	
-					prob = gerador.nextInt(27);
-					if (prob > 11) {
-						if (B_M > 0) {
-							B_M--;
-							if (u < i){
-								if (v < j) {
-									mira_y = (i-u);
-									mira_x = (j-v);
-									if ((mira_y-3) <= mira_x && (mira_y+3) >= mira_x) {
-										shot = 7;
-									} else{
-										if (mira_x == 1) {
-											shot = 6;	
-										} else{
-											if (mira_y == 1) {
-												shot = 0;
-											} else{
-												prob = gerador.nextInt(12);
-											}
-										}
-									}
-								} else{
-									if (v > j) {
-									mira_y = (i-u);
-									mira_x = (v-j);
-									if ((mira_y-3) <= mira_x && (mira_y+3) >= mira_x) {
-										shot = 5;
-									} else{
-										if (mira_x == 1) {
-											shot = 6;	
-										} else{
-											if (mira_y == 1) {
-												shot = 4;
-											} else{
-												prob = gerador.nextInt(12);
-											}
-										}
-									}
-									} else{
-										shot = 6;
-									}
-								}
-							} else{
-								if (u > i) {
-									if (v < j) {
-										mira_y = (u-i);
-										mira_x = (j-v);
-										if ((mira_y-3) <= mira_x && (mira_y+3) >= mira_x) {
-											shot = 1;
-										} else{
-											if (mira_x == 1) {
-												shot = 2;	
-											} else{
-												if (mira_y == 1) {
-													shot = 0;
-												} else{
-													prob = gerador.nextInt(12);
-												}
-											}
-										}
-									} else{
-										if (v > j) {
-											mira_y = (u-i);
-											mira_x = (v-j);
-											if ((mira_y-3) <= mira_x && (mira_y+3) >= mira_x) {
-												shot = 3;
-											} else{
-												if (mira_x == 1) {
-													shot = 2;	
-												} else{
-													if (mira_y == 1) {
-														shot = 4;
-													} else{
-														prob = gerador.nextInt(12);
-													}
-												}
-											}
-										} else{
-											shot = 2;
-										}
-									}
-								} else{
-									if (u == i) {
-										if (v < j) {
-											shot = 0;
-										} else{
-											if (v > j) {
-												shot = 4;
-											} else{
-												B_M++;
-											}
-										}
-									}
-								}
-							}
+            String D = " ";
+            String ERRO;
 
 
-							switch (shot){
-								case 0: // Shoot right / center
-								for (int h = v; h < Limx; h++) {
-									P[u][h] = "***";
-								}
-								break;
-								case 1: // Shoot right / up
-								d = v;
-								for (int g = u; g >= 0; g--) {
-									if (d < Limx) {
-										P[g][d] = "***";
-									} else{
-										g = -(g + 1);
-									}
-									d++;
-								}
-								d = v;
-								break;
-								case 2: // Shoot up
-								for (int g = u; g >= 0; g--) {
-									P[g][v] = "***";
-								}	
-								break;
-								case 3: // Shoot left / up
-								d = v;
-								for (int g = u; g >= 0; g--) {
-									if (d >= 0) {
-										P[g][d] = "***";
-									} else{
-										g = -(g + 1);
-									}
-									d--;
-								}
-								d = v;
-								break;
-								case 4: // Shoot left / center
-								for (int h = v; h >= 0; h--) {
-									P[u][h] = "***";
-								}
-								break;
-								case 5: // Shoot Left / Down
-								d = v;
-								for (int g = u; g < Limy; g++) {
-									if (d >= 0) {
-										P[g][d] = "***";
-									} else{
-										g = Limy;
-									}
-									d--;
-								}
-								d = v;
-								break;
-								case 6: // Shoot down
-								for (int g = u; g < Limy; g++) {
-									P[g][v] = "***";
-								}
-								break;
-								case 7: // Shoot Right / Down
-								d = v;
-								for (int g = u; g < Limy; g++) {
-									if (d < Limx) {
-										P[g][d] = "***";
-									} else{
-										g = Limy;
-									}
-									d++;
-								}
-								d = v;
-								break;
-								}
-							}
-						}
+            while(vidas > 0 && cont <= 200 && pontos <= 10){
 
-					if (prob < 4) {
-						if (u < i) {	
-							if (gerador.nextInt(dice) == 0) {
-							 	v++;
-							 } else{
-							 	u++;
-							 }
-						} else{
-							if (u > i) {
-								if (gerador.nextInt(dice) == 0) {
-								 	v--;
-								 } else{
-								 	u--;
-								 }	
-							} else{
-								if (v < j) {	
-									if (gerador.nextInt(dice) == 0) {
-										u++;
-									} else{
-									 	v++;
-									}
-								}
-								if (v > j) {
-									if (gerador.nextInt(dice) == 0) {
-									 	u--;
-									 } else{
-									 	v--;
-									 }	
-								}
-							}
-						}
-					} else{
+                if (cont != 0) {
+                    start = true;
+                }
 
-						if (prob < 8){
-							if (v < j) {	
-								if (gerador.nextInt(dice) == 0) {
-								 	u++;
-								 } else{
-								 	v++;
-								 }
-							} else{
-								if (v > j) {
-									if (gerador.nextInt(dice) == 0) {
-									 	u--;
-								 	} else{
-									 	v--;
-								 	}	
-								} else{
-									if (u < i) {	
-										if (gerador.nextInt(dice) == 0) {
-										 	v++;
-										 } else{
-										 	u++;
-										 }
-									} else{
-										if (u > i) {
-											if (gerador.nextInt(dice) == 0) {
-											 	v--;
-											 } else{
-											 	u--;
-											 }
-										}
-									}
-								}
-							}
-						} else{
-						
-							if (prob < 12) {
-								if (T_M > 0) {
-									T_M--;
-									cont_T_M = 1;
-									u = gerador.nextInt(Limy);
-									v = gerador.nextInt(Limx);
-								} else {
-									prob++;
-								}
-							}
-						}
-					}
-				}
+                for (int g = 0; g < limy; g++) {
+                    for (int h = 0; h < limx; h++) {
+                        if (P_1[g][h]) {
+                            player[g][h] = " ~ ";
+                        } else{
+                            player[g][h] = "   ";
+                        }
+                    }
+                }
 
-				if (u < 0 || u > (Limy-1) || v < 0 || v > (Limx-1)){
-					u = c;
-					v = d;
-					P[u][v] = " M ";
-				} else{
-					if (cont_T_M == 1) {
-						P[c][d] = "0+0";
-						P[u][v] = "0M0";	
-						P[u][v] = "0M0";					
+                player[u][v]  = " M ";
+                player[i][j]  = " H ";
+                cont_T   = 0;
+                cont_T_M = 0;
+                cont_G 	 = 0;
+                shot     = 10;
+                YOUCANTSTOP = 0;
+                int a1 = ((i - u) * (i - u)) + ((j - v) * (j - v));
+                dist = Math.sqrt(a1);
+                String ops = Double.toString(a1);
+                String ops1 = Double.toString(dist);
+                ERRO = "i: "+i+" j: "+j+" u: "+u+" v: "+v+" sqrt of: "+ops+" and end of: "+ops1;
 
-					} else{
-						P[c][d] = "   ";
-						P[u][v] = " M ";
-					}
-				}
+                c = u;
+                d = v;
+
+                if (start) {
+                    prob = gerador.nextInt(27);
+                    if (prob > 11) {
+                        if (B_M > 0) {
+                            B_M--;
+                            if (u < i){
+                                if (v < j) {
+                                    mira_y = (i-u);
+                                    mira_x = (j-v);
+                                    if ((mira_y-3) <= mira_x && (mira_y+3) >= mira_x) {
+                                        shot = 7;
+                                    } else{
+                                        if (mira_x == 1) {
+                                            shot = 6;
+                                        } else{
+                                            if (mira_y == 1) {
+                                                shot = 0;
+                                            } else{
+                                                prob = gerador.nextInt(12);
+                                            }
+                                        }
+                                    }
+                                } else{
+                                    if (v > j) {
+                                        mira_y = (i-u);
+                                        mira_x = (v-j);
+                                        if ((mira_y-3) <= mira_x && (mira_y+3) >= mira_x) {
+                                            shot = 5;
+                                        } else{
+                                            if (mira_x == 1) {
+                                                shot = 6;
+                                            } else{
+                                                if (mira_y == 1) {
+                                                    shot = 4;
+                                                } else{
+                                                    prob = gerador.nextInt(12);
+                                                }
+                                            }
+                                        }
+                                    } else{
+                                        shot = 6;
+                                    }
+                                }
+                            } else{
+                                if (u > i) {
+                                    if (v < j) {
+                                        mira_y = (u-i);
+                                        mira_x = (j-v);
+                                        if ((mira_y-3) <= mira_x && (mira_y+3) >= mira_x) {
+                                            shot = 1;
+                                        } else{
+                                            if (mira_x == 1) {
+                                                shot = 2;
+                                            } else{
+                                                if (mira_y == 1) {
+                                                    shot = 0;
+                                                } else{
+                                                    prob = gerador.nextInt(12);
+                                                }
+                                            }
+                                        }
+                                    } else{
+                                        if (v > j) {
+                                            mira_y = (u-i);
+                                            mira_x = (v-j);
+                                            if ((mira_y-3) <= mira_x && (mira_y+3) >= mira_x) {
+                                                shot = 3;
+                                            } else{
+                                                if (mira_x == 1) {
+                                                    shot = 2;
+                                                } else{
+                                                    if (mira_y == 1) {
+                                                        shot = 4;
+                                                    } else{
+                                                        prob = gerador.nextInt(12);
+                                                    }
+                                                }
+                                            }
+                                        } else{
+                                            shot = 2;
+                                        }
+                                    }
+                                } else{
+                                    if (u == i) {
+                                        if (v < j) {
+                                            shot = 0;
+                                        } else{
+                                            if (v > j) {
+                                                shot = 4;
+                                            } else{
+                                                B_M++;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
 
 
+                            switch (shot){
+                                case 0: // Shoot right / center
+                                    for (int h = v; h < limx; h++) {
+                                        player[u][h] = "***";
+                                    }
+                                    break;
+                                case 1: // Shoot right / up
+                                    d = v;
+                                    for (int g = u; g >= 0; g--) {
+                                        if (d < limx) {
+                                            player[g][d] = "***";
+                                        } else{
+                                            g = -(g + 1);
+                                        }
+                                        d++;
+                                    }
+                                    d = v;
+                                    break;
+                                case 2: // Shoot up
+                                    for (int g = u; g >= 0; g--) {
+                                        player[g][v] = "***";
+                                    }
+                                    break;
+                                case 3: // Shoot left / up
+                                    d = v;
+                                    for (int g = u; g >= 0; g--) {
+                                        if (d >= 0) {
+                                            player[g][d] = "***";
+                                        } else{
+                                            g = -(g + 1);
+                                        }
+                                        d--;
+                                    }
+                                    d = v;
+                                    break;
+                                case 4: // Shoot left / center
+                                    for (int h = v; h >= 0; h--) {
+                                        player[u][h] = "***";
+                                    }
+                                    break;
+                                case 5: // Shoot Left / Down
+                                    d = v;
+                                    for (int g = u; g < limy; g++) {
+                                        if (d >= 0) {
+                                            player[g][d] = "***";
+                                        } else{
+                                            g = limy;
+                                        }
+                                        d--;
+                                    }
+                                    d = v;
+                                    break;
+                                case 6: // Shoot down
+                                    for (int g = u; g < limy; g++) {
+                                        player[g][v] = "***";
+                                    }
+                                    break;
+                                case 7: // Shoot Right / Down
+                                    d = v;
+                                    for (int g = u; g < limy; g++) {
+                                        if (d < limx) {
+                                            player[g][d] = "***";
+                                        } else{
+                                            g = limy;
+                                        }
+                                        d++;
+                                    }
+                                    d = v;
+                                    break;
+                            }
+                        }
+                    }
 
-				a = i;
-				b = j;
+                    if (prob < 4) {
+                        if (u < i) {
+                            if (gerador.nextInt(dice) == 0) {
+                                v++;
+                            } else{
+                                u++;
+                            }
+                        } else{
+                            if (u > i) {
+                                if (gerador.nextInt(dice) == 0) {
+                                    v--;
+                                } else{
+                                    u--;
+                                }
+                            } else{
+                                if (v < j) {
+                                    if (gerador.nextInt(dice) == 0) {
+                                        u++;
+                                    } else{
+                                        v++;
+                                    }
+                                }
+                                if (v > j) {
+                                    if (gerador.nextInt(dice) == 0) {
+                                        u--;
+                                    } else{
+                                        v--;
+                                    }
+                                }
+                            }
+                        }
+                    } else{
+
+                        if (prob < 8){
+                            if (v < j) {
+                                if (gerador.nextInt(dice) == 0) {
+                                    u++;
+                                } else{
+                                    v++;
+                                }
+                            } else{
+                                if (v > j) {
+                                    if (gerador.nextInt(dice) == 0) {
+                                        u--;
+                                    } else{
+                                        v--;
+                                    }
+                                } else{
+                                    if (u < i) {
+                                        if (gerador.nextInt(dice) == 0) {
+                                            v++;
+                                        } else{
+                                            u++;
+                                        }
+                                    } else{
+                                        if (u > i) {
+                                            if (gerador.nextInt(dice) == 0) {
+                                                v--;
+                                            } else{
+                                                u--;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else{
+
+                            if (prob < 12) {
+                                if (T_M > 0) {
+                                    T_M--;
+                                    cont_T_M = 1;
+                                    u = gerador.nextInt(limy);
+                                    v = gerador.nextInt(limx);
+                                } else {
+                                    prob++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (u < 0 || u > (limy-1) || v < 0 || v > (limx-1)){
+                    u = c;
+                    v = d;
+                    player[u][v] = " M ";
+                } else{
+                    if (cont_T_M == 1) {
+                        player[c][d] = "0+0";
+                        player[u][v] = "0M0";
+                        player[u][v] = "0M0";
+
+                    } else{
+                        player[c][d] = "   ";
+                        player[u][v] = " M ";
+                    }
+                }
+
+                a = i;
+                b = j;
 
 
-				
+                if (D.equals("W") || D.equals("w")){
+                    i--;
+                } else{
+                    if (D.equals("S") || D.equals("s")) {
+                        i++;
+                    } else{
+                        if (D.equals("A") || D.equals("a")) {
+                            j--;
+                        } else{
+                            if (D.equals("D") || D.equals("d")) {
+                                j++;
+                            } else{
+                                if (D.equals("T") || D.equals("t") || D.equals("wt") || D.equals("st") || D.equals("at") || D.equals("dt") || D.equals("tw") || D.equals("ts") || D.equals("ta") || D.equals("td")) {
+                                    if (teleport > 0) {
+                                        i =  gerador.nextInt(limy);
+                                        j =  gerador.nextInt(limx);
+                                        teleport--;
+                                        ERRO = "TELEPORT!!!!";
+                                        cont_T = 1;
+                                    } else{
+                                        ERRO = "You don't have any more teleports";
+                                    }
+                                } else{
+                                    if (D.equals("Q") || D.equals("q") || D.equals("qt") || D.equals("tq")) {
+                                        if (bombs > 0) {
+                                            ERRO = "BOMB!!!!!";
+                                            bombs--;
+                                            for (int g = 0; g < limy; g++) {
+                                                for (int h = 0; h < limx; h++) {
+                                                    dist = Math.sqrt((i-g)*(i-g)+(j-h)*(j-h));
+                                                    if (dist <= 3){
+                                                        if (player[g][h].equals(" M ")){
+                                                            pontos++;
+                                                            u = (limy-1);
+                                                            v = (limx-1);
+                                                            player[u][v] = " M ";
+                                                        }
 
-				if (D.equals("W") || D.equals("w")){
-					i--;
-				} else{
-					if (D.equals("S") || D.equals("s")) {
-						i++;
-					} else{
-						if (D.equals("A") || D.equals("a")) {
-							j--;
-						} else{
-							if (D.equals("D") || D.equals("d")) {
-								j++;
-							} else{
-								if (D.equals("T") || D.equals("t") || D.equals("wt") || D.equals("st") || D.equals("at") || D.equals("dt") || D.equals("tw") || D.equals("ts") || D.equals("ta") || D.equals("td")) {
-									if (T > 0) {
-										i =  gerador.nextInt(Limy);
-										j =  gerador.nextInt(Limx);
-										T--;
-										ERRO = "TELEPORT!!!!";
-										cont_T = 1;
-									} else{
-										ERRO = "You don't have any more teleports";
-									}
-								} else{
-									if (D.equals("Q") || D.equals("q") || D.equals("qt") || D.equals("tq")) {
-										if (B > 0) {
-											ERRO = "BOMB!!!!!";
-											B--;
-											for (int g = 0; g < Limy; g++) {
-												for (int h = 0; h < Limx; h++) {
-													dist = Math.sqrt((i-g)*(i-g)+(j-h)*(j-h));
-													if (dist <= 3){
-														if (P[g][h] == " M "){
-															Pontos++;
-															u = (Limy-1);
-															v = (Limx-1);
-															P[u][v] = " M ";
-														}
+                                                        player[g][h] = " * ";
+                                                        player[g][h] = " * ";
 
-														
-														P[g][h] = " * ";
-														
+                                                    }
+                                                }
+                                            }
+                                        } else{
+                                            ERRO = "You don't have any more bombs";
+                                        }
+                                    } else{
+                                        if (D.equals("R") || D.equals("r")) {
+                                            if (mines > 0) {
+                                                ERRO = "Land Mine!!!!!";
+                                                mines--;
+                                                P_1[i][j] = true;
+                                                cont_G = 1;
+                                            } else{
+                                                ERRO = "You don't have any more mines";
+                                            }
 
-														P[g][h] = " * ";														
-
-													}
-												}	
-											}
-										} else{
-											ERRO = "You don't have any more bombs";
-										}
-									} else{
-										if (D.equals("R") || D.equals("r")) {
-											if (G > 0) {
-												ERRO = "Land Mine!!!!!";
-												G--;
-												P_1[i][j] = true;
-												cont_G = 1;
-											} else{
-												ERRO = "You don't have any more mines";
-											}
-
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				if (i < 0 || i > (Limy-1) || j < 0 || j > (Limx-1)){
-					i = a;
-					j = b;
-					P[i][j] = " H ";
-					YOUCANTSTOP = 1;
-					if (P[i][j] == "***") {
-						V--;
-						P[i][j] = "*H*";
-						YOUCANTSTOP = 1;
-					}
-					ERRO = "You cannot go in that direction!!";
-				} else{
-					if (cont_T == 1) {
-						if (P[a][b] == "***") {
-							P[a][b] = "000";
-						} else{
-							P[a][b] = "000";
-						}
-						if (P[i][j] == "***") {
-							V--;
-							P[i][j] = "*H*";
-						} else{
-							P[i][j] = "0H0";
-						}
-					} else{
-						if (cont_G == 1) {
-						} else{
-							if (P[a][b] == "***") {
-								P[a][b] = "***";
-							} else{
-								if (P_1[a][b] == true) {
-									P[a][b] = " ~ ";
-								} else{
-									P[a][b] = "   ";
-								}
-							}
-							if (P[i][j] == "***") {
-								V--;
-								P[i][j] = "*H*";
-							} else{
-								P[i][j] = " H ";
-							}
-						}
-					}
-				}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (i < 0 || i > (limy-1) || j < 0 || j > (limx-1)){
+                    i = a;
+                    j = b;
+                    player[i][j] = " H ";
+                    YOUCANTSTOP = 1;
+                    if (player[i][j].equals("***")) {
+                        vidas--;
+                        player[i][j] = "*H*";
+                        YOUCANTSTOP = 1;
+                    }
+                    ERRO = "You cannot go in that direction!!";
+                } else{
+                    if (cont_T == 1) {
+                        player[a][b] = "000";
+                        if (player[i][j].equals("***")) {
+                            vidas--;
+                            player[i][j] = "*H*";
+                        } else{
+                            player[i][j] = "0H0";
+                        }
+                    } else{
+                        if (cont_G == 1) {
+                        } else{
+                            if (player[a][b].equals("***")) {
+                                player[a][b] = "***";
+                            } else{
+                                if (P_1[a][b]) {
+                                    player[a][b] = " ~ ";
+                                } else{
+                                    player[a][b] = "   ";
+                                }
+                            }
+                            if (player[i][j].equals("***")) {
+                                vidas--;
+                                player[i][j] = "*H*";
+                            } else{
+                                player[i][j] = " H ";
+                            }
+                        }
+                    }
+                }
 
 
-				if (u == i && j == v) {
-					V--;
-					P[i][j] = " X ";
-					u 		= (Limy-1);
-					v 		= (Limx-1);
-				}
+                if (u == i && j == v) {
+                    vidas--;
+                    player[i][j] = " X ";
+                    u 		= (limy-1);
+                    v 		= (limx-1);
+                }
 
-				Mina(P, P_1, i, j, u, v, Limy, Limx, YOUCANTSTOP, cont_G, Pontos);
-				
-					
-					
+                Mina(player, P_1, i, j, u, v, limy, limx, YOUCANTSTOP, cont_G, pontos);
 
-				System.out.println();
-				System.out.println();
-				System.out.println(ERRO);
-				ERRO = " ";
-				System.out.println();
-				System.out.println(cont+" shifts! (missing "+(200-cont)+" for you to win)");
-				System.out.println(V+" vidas!");
-				System.out.println(Pontos+" points! (missing "+(10 - Pontos)+" for you to win)");
-				System.out.println();
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[0][0]+"|"+P[0][1]+"|"+P[0][2]+"|"+P[0][3]+"|"+P[0][4]+"|"+P[0][5]+"|"+P[0][6]+"|"+P[0][7]+"|"+P[0][8]+"|"+P[0][9]+"|"+P[0][10]+"|"+P[0][11]+"|"+P[0][12]+"|"+P[0][13]+"|"+P[0][14]+"|"+P[0][15]+"|"+P[0][16]+"|"+P[0][17]+"|"+P[0][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[1][0]+"|"+P[1][1]+"|"+P[1][2]+"|"+P[1][3]+"|"+P[1][4]+"|"+P[1][5]+"|"+P[1][6]+"|"+P[1][7]+"|"+P[1][8]+"|"+P[1][9]+"|"+P[1][10]+"|"+P[1][11]+"|"+P[1][12]+"|"+P[1][13]+"|"+P[1][14]+"|"+P[1][15]+"|"+P[1][16]+"|"+P[1][17]+"|"+P[1][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[2][0]+"|"+P[2][1]+"|"+P[2][2]+"|"+P[2][3]+"|"+P[2][4]+"|"+P[2][5]+"|"+P[2][6]+"|"+P[2][7]+"|"+P[2][8]+"|"+P[2][9]+"|"+P[2][10]+"|"+P[2][11]+"|"+P[2][12]+"|"+P[2][13]+"|"+P[2][14]+"|"+P[2][15]+"|"+P[2][16]+"|"+P[2][17]+"|"+P[2][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[3][0]+"|"+P[3][1]+"|"+P[3][2]+"|"+P[3][3]+"|"+P[3][4]+"|"+P[3][5]+"|"+P[3][6]+"|"+P[3][7]+"|"+P[3][8]+"|"+P[3][9]+"|"+P[3][10]+"|"+P[3][11]+"|"+P[3][12]+"|"+P[3][13]+"|"+P[3][14]+"|"+P[3][15]+"|"+P[3][16]+"|"+P[3][17]+"|"+P[3][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[4][0]+"|"+P[4][1]+"|"+P[4][2]+"|"+P[4][3]+"|"+P[4][4]+"|"+P[4][5]+"|"+P[4][6]+"|"+P[4][7]+"|"+P[4][8]+"|"+P[4][9]+"|"+P[4][10]+"|"+P[4][11]+"|"+P[4][12]+"|"+P[4][13]+"|"+P[4][14]+"|"+P[4][15]+"|"+P[4][16]+"|"+P[4][17]+"|"+P[4][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[5][0]+"|"+P[5][1]+"|"+P[5][2]+"|"+P[5][3]+"|"+P[5][4]+"|"+P[5][5]+"|"+P[5][6]+"|"+P[5][7]+"|"+P[5][8]+"|"+P[5][9]+"|"+P[5][10]+"|"+P[5][11]+"|"+P[5][12]+"|"+P[5][13]+"|"+P[5][14]+"|"+P[5][15]+"|"+P[5][16]+"|"+P[5][17]+"|"+P[5][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[6][0]+"|"+P[6][1]+"|"+P[6][2]+"|"+P[6][3]+"|"+P[6][4]+"|"+P[6][5]+"|"+P[6][6]+"|"+P[6][7]+"|"+P[6][8]+"|"+P[6][9]+"|"+P[6][10]+"|"+P[6][11]+"|"+P[6][12]+"|"+P[6][13]+"|"+P[6][14]+"|"+P[6][15]+"|"+P[6][16]+"|"+P[6][17]+"|"+P[6][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[7][0]+"|"+P[7][1]+"|"+P[7][2]+"|"+P[7][3]+"|"+P[7][4]+"|"+P[7][5]+"|"+P[7][6]+"|"+P[7][7]+"|"+P[7][8]+"|"+P[7][9]+"|"+P[7][10]+"|"+P[7][11]+"|"+P[7][12]+"|"+P[7][13]+"|"+P[7][14]+"|"+P[7][15]+"|"+P[7][16]+"|"+P[7][17]+"|"+P[7][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[8][0]+"|"+P[8][1]+"|"+P[8][2]+"|"+P[8][3]+"|"+P[8][4]+"|"+P[8][5]+"|"+P[8][6]+"|"+P[8][7]+"|"+P[8][8]+"|"+P[8][9]+"|"+P[8][10]+"|"+P[8][11]+"|"+P[8][12]+"|"+P[8][13]+"|"+P[8][14]+"|"+P[8][15]+"|"+P[8][16]+"|"+P[8][17]+"|"+P[8][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[9][0]+"|"+P[9][1]+"|"+P[9][2]+"|"+P[9][3]+"|"+P[9][4]+"|"+P[9][5]+"|"+P[9][6]+"|"+P[9][7]+"|"+P[9][8]+"|"+P[9][9]+"|"+P[9][10]+"|"+P[9][11]+"|"+P[9][12]+"|"+P[9][13]+"|"+P[9][14]+"|"+P[9][15]+"|"+P[9][16]+"|"+P[9][17]+"|"+P[9][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[10][0]+"|"+P[10][1]+"|"+P[10][2]+"|"+P[10][3]+"|"+P[10][4]+"|"+P[10][5]+"|"+P[10][6]+"|"+P[10][7]+"|"+P[10][8]+"|"+P[10][9]+"|"+P[10][10]+"|"+P[10][11]+"|"+P[10][12]+"|"+P[10][13]+"|"+P[10][14]+"|"+P[10][15]+"|"+P[10][16]+"|"+P[10][17]+"|"+P[10][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[11][0]+"|"+P[11][1]+"|"+P[11][2]+"|"+P[11][3]+"|"+P[11][4]+"|"+P[11][5]+"|"+P[11][6]+"|"+P[11][7]+"|"+P[11][8]+"|"+P[11][9]+"|"+P[11][10]+"|"+P[11][11]+"|"+P[11][12]+"|"+P[11][13]+"|"+P[11][14]+"|"+P[11][15]+"|"+P[11][16]+"|"+P[11][17]+"|"+P[11][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[12][0]+"|"+P[12][1]+"|"+P[12][2]+"|"+P[12][3]+"|"+P[12][4]+"|"+P[12][5]+"|"+P[12][6]+"|"+P[12][7]+"|"+P[12][8]+"|"+P[12][9]+"|"+P[12][10]+"|"+P[12][11]+"|"+P[12][12]+"|"+P[12][13]+"|"+P[12][14]+"|"+P[12][15]+"|"+P[12][16]+"|"+P[12][17]+"|"+P[12][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[13][0]+"|"+P[13][1]+"|"+P[13][2]+"|"+P[13][3]+"|"+P[13][4]+"|"+P[13][5]+"|"+P[13][6]+"|"+P[13][7]+"|"+P[13][8]+"|"+P[13][9]+"|"+P[13][10]+"|"+P[13][11]+"|"+P[13][12]+"|"+P[13][13]+"|"+P[13][14]+"|"+P[13][15]+"|"+P[13][16]+"|"+P[13][17]+"|"+P[13][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[14][0]+"|"+P[14][1]+"|"+P[14][2]+"|"+P[14][3]+"|"+P[14][4]+"|"+P[14][5]+"|"+P[14][6]+"|"+P[14][7]+"|"+P[14][8]+"|"+P[14][9]+"|"+P[14][10]+"|"+P[14][11]+"|"+P[14][12]+"|"+P[14][13]+"|"+P[14][14]+"|"+P[14][15]+"|"+P[14][16]+"|"+P[14][17]+"|"+P[14][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[15][0]+"|"+P[15][1]+"|"+P[15][2]+"|"+P[15][3]+"|"+P[15][4]+"|"+P[15][5]+"|"+P[15][6]+"|"+P[15][7]+"|"+P[15][8]+"|"+P[15][9]+"|"+P[15][10]+"|"+P[15][11]+"|"+P[15][12]+"|"+P[15][13]+"|"+P[15][14]+"|"+P[15][15]+"|"+P[15][16]+"|"+P[15][17]+"|"+P[15][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[16][0]+"|"+P[16][1]+"|"+P[16][2]+"|"+P[16][3]+"|"+P[16][4]+"|"+P[16][5]+"|"+P[16][6]+"|"+P[16][7]+"|"+P[16][8]+"|"+P[16][9]+"|"+P[16][10]+"|"+P[16][11]+"|"+P[16][12]+"|"+P[16][13]+"|"+P[16][14]+"|"+P[16][15]+"|"+P[16][16]+"|"+P[16][17]+"|"+P[16][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[17][0]+"|"+P[17][1]+"|"+P[17][2]+"|"+P[17][3]+"|"+P[17][4]+"|"+P[17][5]+"|"+P[17][6]+"|"+P[17][7]+"|"+P[17][8]+"|"+P[17][9]+"|"+P[17][10]+"|"+P[17][11]+"|"+P[17][12]+"|"+P[17][13]+"|"+P[17][14]+"|"+P[17][15]+"|"+P[17][16]+"|"+P[17][17]+"|"+P[17][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[18][0]+"|"+P[18][1]+"|"+P[18][2]+"|"+P[18][3]+"|"+P[18][4]+"|"+P[18][5]+"|"+P[18][6]+"|"+P[18][7]+"|"+P[18][8]+"|"+P[18][9]+"|"+P[18][10]+"|"+P[18][11]+"|"+P[18][12]+"|"+P[18][13]+"|"+P[18][14]+"|"+P[18][15]+"|"+P[18][16]+"|"+P[18][17]+"|"+P[18][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[19][0]+"|"+P[19][1]+"|"+P[19][2]+"|"+P[19][3]+"|"+P[19][4]+"|"+P[19][5]+"|"+P[19][6]+"|"+P[19][7]+"|"+P[19][8]+"|"+P[19][9]+"|"+P[19][10]+"|"+P[19][11]+"|"+P[19][12]+"|"+P[19][13]+"|"+P[19][14]+"|"+P[19][15]+"|"+P[19][16]+"|"+P[19][17]+"|"+P[19][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[20][0]+"|"+P[20][1]+"|"+P[20][2]+"|"+P[20][3]+"|"+P[20][4]+"|"+P[20][5]+"|"+P[20][6]+"|"+P[20][7]+"|"+P[20][8]+"|"+P[20][9]+"|"+P[20][10]+"|"+P[20][11]+"|"+P[20][12]+"|"+P[20][13]+"|"+P[20][14]+"|"+P[20][15]+"|"+P[20][16]+"|"+P[20][17]+"|"+P[20][18]+"|");
-				System.out.println("-----------------------------------------------------------------------------");
-				System.out.println("|"+P[21][0]+"|"+P[21][1]+"|"+P[21][2]+"|"+P[21][3]+"|"+P[21][4]+"|"+P[21][5]+"|"+P[21][6]+"|"+P[21][7]+"|"+P[21][8]+"|"+P[21][9]+"|"+P[21][10]+"|"+P[21][11]+"|"+P[21][12]+"|"+P[21][13]+"|"+P[21][14]+"|"+P[21][15]+"|"+P[21][16]+"|"+P[21][17]+"|"+P[21][18]+"*");
-				System.out.println("----------------------------------------------------------------------------*");
-				System.out.println("|"+P[22][0]+"|"+P[22][1]+"|"+P[22][2]+"|"+P[22][3]+"|"+P[22][4]+"|"+P[22][5]+"|"+P[22][6]+"|"+P[22][7]+"|"+P[22][8]+"|"+P[22][9]+"|"+P[22][10]+"|"+P[22][11]+"|"+P[22][12]+"|"+P[22][13]+"|"+P[22][14]+"|"+P[22][15]+"|"+P[22][16]+"|"+P[22][17]+"|"+P[22][18]+"*");
-				System.out.println("------------------------------------------------------------------------*****");
 
-				System.out.println();
-				if (V > 0) {
-					System.out.println("You have "+T+" teleports, "+B+" bombs e "+G+" mines");
-					System.out.println("W = up; S = down; A = left; D = right; T = teleport; Q = bomb; R = mine");
-					System.out.println();
-					D = entrada.readLine();
-					cont++;
-				}
-			}
-			if (V > 0) {
-				System.out.println("Congratulations!! You won!!");
-			} else{
-				System.out.println("More luck next time!");
-			}
-		} catch(Exception e){
-			System.out.println("Reading mistake!");
-		}
-	}
-	public static void Mina(String P[][], boolean P_1[][], int i, int j, int u, int v, int Limy, int Limx, int YOUCANTSTOP, int cont_G, int Pontos){
-		double dist = 0;
-		if (P_1[i][j] == true && cont_G != 1) {
-			V--;
-			P_1[i][j] = false;
-			for (int g = 0; g < Limy; g++) {
-				for (int h = 0; h < Limx; h++) {
-					dist = Math.sqrt((u-g)*(u-g)+(v-h)*(v-h));
-					if (dist <= 3) {
-						P[g][h] = "#M#";
-						Pontos++;
-						u = (Limy-1);
-						v = (Limx-1);
-						P[u][v] = " M ";
-					} else{
-						dist = Math.sqrt((i-g)*(i-g)+(j-h)*(j-h));
-						if (dist <= 3) {
-							P[g][h] = " * ";
-						}
-					}
 
-				}	
-			}
-			P[i][j] = "#H#";
-		}
-		if (P_1[u][v] == true) {
-			P_1[u][v] = false;
-			Pontos++;
-			for (int g = 0; g < Limy; g++) {
-				for (int h = 0; h < Limx; h++) {
 
-					dist = Math.sqrt((u-g)*(u-g)+(v-h)*(v-h));
-					if (dist <= 3) {
-						P[g][h] = " * ";
-					}
-				}
-			}	
-		}
-		for (int k = 0; k < Limy; k++) {
-			for (int l = 0; l < Limx; l++) {
-				if (P[k][l] == " * " || P[k][l] == "***") {
-					if (P_1[k][l] == true) {
-						P_1[k][l] = false;
-						for (int g = 0; g < Limy; g++) {
-							for (int h = 0; h < Limx; h++) {
-								dist = Math.sqrt((k-g)*(k-g)+(l-h)*(l-h));
-								if (dist <= 3) {
-									if (g == i && h == j){
-										V--;
-										P[g][h] = "#H#";
-									} else{
-										if (g == u && h == v) {
-											P[g][h] = "#M#";
-											Pontos++;
-											u = (Limy-1);
-											v = (Limx-1);
-											P[u][v] = " M ";
-											P[g][h] = " * ";
-										} else{
-											P[g][h] = " * ";
-										}
-									}
-								}
-							}
-						}
-						P[k][l] = "*#*";
-					}
-				}	
-			}
-		}
-	}
+                System.out.println();
+                System.out.println();
+                System.out.println(ERRO);
+                System.out.println();
+                System.out.println(cont+" shifts! (missing "+(200-cont)+" for you to win)");
+                System.out.println(vidas +" vidas!");
+                System.out.println(pontos +" points! (missing "+(10 - pontos)+" for you to win)");
+                System.out.println();
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[0][0]+"|"+ player[0][1]+"|"+ player[0][2]+"|"+ player[0][3]+"|"+ player[0][4]+"|"+ player[0][5]+"|"+ player[0][6]+"|"+ player[0][7]+"|"+ player[0][8]+"|"+ player[0][9]+"|"+ player[0][10]+"|"+ player[0][11]+"|"+ player[0][12]+"|"+ player[0][13]+"|"+ player[0][14]+"|"+ player[0][15]+"|"+ player[0][16]+"|"+ player[0][17]+"|"+ player[0][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[1][0]+"|"+ player[1][1]+"|"+ player[1][2]+"|"+ player[1][3]+"|"+ player[1][4]+"|"+ player[1][5]+"|"+ player[1][6]+"|"+ player[1][7]+"|"+ player[1][8]+"|"+ player[1][9]+"|"+ player[1][10]+"|"+ player[1][11]+"|"+ player[1][12]+"|"+ player[1][13]+"|"+ player[1][14]+"|"+ player[1][15]+"|"+ player[1][16]+"|"+ player[1][17]+"|"+ player[1][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[2][0]+"|"+ player[2][1]+"|"+ player[2][2]+"|"+ player[2][3]+"|"+ player[2][4]+"|"+ player[2][5]+"|"+ player[2][6]+"|"+ player[2][7]+"|"+ player[2][8]+"|"+ player[2][9]+"|"+ player[2][10]+"|"+ player[2][11]+"|"+ player[2][12]+"|"+ player[2][13]+"|"+ player[2][14]+"|"+ player[2][15]+"|"+ player[2][16]+"|"+ player[2][17]+"|"+ player[2][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[3][0]+"|"+ player[3][1]+"|"+ player[3][2]+"|"+ player[3][3]+"|"+ player[3][4]+"|"+ player[3][5]+"|"+ player[3][6]+"|"+ player[3][7]+"|"+ player[3][8]+"|"+ player[3][9]+"|"+ player[3][10]+"|"+ player[3][11]+"|"+ player[3][12]+"|"+ player[3][13]+"|"+ player[3][14]+"|"+ player[3][15]+"|"+ player[3][16]+"|"+ player[3][17]+"|"+ player[3][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[4][0]+"|"+ player[4][1]+"|"+ player[4][2]+"|"+ player[4][3]+"|"+ player[4][4]+"|"+ player[4][5]+"|"+ player[4][6]+"|"+ player[4][7]+"|"+ player[4][8]+"|"+ player[4][9]+"|"+ player[4][10]+"|"+ player[4][11]+"|"+ player[4][12]+"|"+ player[4][13]+"|"+ player[4][14]+"|"+ player[4][15]+"|"+ player[4][16]+"|"+ player[4][17]+"|"+ player[4][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[5][0]+"|"+ player[5][1]+"|"+ player[5][2]+"|"+ player[5][3]+"|"+ player[5][4]+"|"+ player[5][5]+"|"+ player[5][6]+"|"+ player[5][7]+"|"+ player[5][8]+"|"+ player[5][9]+"|"+ player[5][10]+"|"+ player[5][11]+"|"+ player[5][12]+"|"+ player[5][13]+"|"+ player[5][14]+"|"+ player[5][15]+"|"+ player[5][16]+"|"+ player[5][17]+"|"+ player[5][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[6][0]+"|"+ player[6][1]+"|"+ player[6][2]+"|"+ player[6][3]+"|"+ player[6][4]+"|"+ player[6][5]+"|"+ player[6][6]+"|"+ player[6][7]+"|"+ player[6][8]+"|"+ player[6][9]+"|"+ player[6][10]+"|"+ player[6][11]+"|"+ player[6][12]+"|"+ player[6][13]+"|"+ player[6][14]+"|"+ player[6][15]+"|"+ player[6][16]+"|"+ player[6][17]+"|"+ player[6][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[7][0]+"|"+ player[7][1]+"|"+ player[7][2]+"|"+ player[7][3]+"|"+ player[7][4]+"|"+ player[7][5]+"|"+ player[7][6]+"|"+ player[7][7]+"|"+ player[7][8]+"|"+ player[7][9]+"|"+ player[7][10]+"|"+ player[7][11]+"|"+ player[7][12]+"|"+ player[7][13]+"|"+ player[7][14]+"|"+ player[7][15]+"|"+ player[7][16]+"|"+ player[7][17]+"|"+ player[7][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[8][0]+"|"+ player[8][1]+"|"+ player[8][2]+"|"+ player[8][3]+"|"+ player[8][4]+"|"+ player[8][5]+"|"+ player[8][6]+"|"+ player[8][7]+"|"+ player[8][8]+"|"+ player[8][9]+"|"+ player[8][10]+"|"+ player[8][11]+"|"+ player[8][12]+"|"+ player[8][13]+"|"+ player[8][14]+"|"+ player[8][15]+"|"+ player[8][16]+"|"+ player[8][17]+"|"+ player[8][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[9][0]+"|"+ player[9][1]+"|"+ player[9][2]+"|"+ player[9][3]+"|"+ player[9][4]+"|"+ player[9][5]+"|"+ player[9][6]+"|"+ player[9][7]+"|"+ player[9][8]+"|"+ player[9][9]+"|"+ player[9][10]+"|"+ player[9][11]+"|"+ player[9][12]+"|"+ player[9][13]+"|"+ player[9][14]+"|"+ player[9][15]+"|"+ player[9][16]+"|"+ player[9][17]+"|"+ player[9][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[10][0]+"|"+ player[10][1]+"|"+ player[10][2]+"|"+ player[10][3]+"|"+ player[10][4]+"|"+ player[10][5]+"|"+ player[10][6]+"|"+ player[10][7]+"|"+ player[10][8]+"|"+ player[10][9]+"|"+ player[10][10]+"|"+ player[10][11]+"|"+ player[10][12]+"|"+ player[10][13]+"|"+ player[10][14]+"|"+ player[10][15]+"|"+ player[10][16]+"|"+ player[10][17]+"|"+ player[10][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[11][0]+"|"+ player[11][1]+"|"+ player[11][2]+"|"+ player[11][3]+"|"+ player[11][4]+"|"+ player[11][5]+"|"+ player[11][6]+"|"+ player[11][7]+"|"+ player[11][8]+"|"+ player[11][9]+"|"+ player[11][10]+"|"+ player[11][11]+"|"+ player[11][12]+"|"+ player[11][13]+"|"+ player[11][14]+"|"+ player[11][15]+"|"+ player[11][16]+"|"+ player[11][17]+"|"+ player[11][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[12][0]+"|"+ player[12][1]+"|"+ player[12][2]+"|"+ player[12][3]+"|"+ player[12][4]+"|"+ player[12][5]+"|"+ player[12][6]+"|"+ player[12][7]+"|"+ player[12][8]+"|"+ player[12][9]+"|"+ player[12][10]+"|"+ player[12][11]+"|"+ player[12][12]+"|"+ player[12][13]+"|"+ player[12][14]+"|"+ player[12][15]+"|"+ player[12][16]+"|"+ player[12][17]+"|"+ player[12][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[13][0]+"|"+ player[13][1]+"|"+ player[13][2]+"|"+ player[13][3]+"|"+ player[13][4]+"|"+ player[13][5]+"|"+ player[13][6]+"|"+ player[13][7]+"|"+ player[13][8]+"|"+ player[13][9]+"|"+ player[13][10]+"|"+ player[13][11]+"|"+ player[13][12]+"|"+ player[13][13]+"|"+ player[13][14]+"|"+ player[13][15]+"|"+ player[13][16]+"|"+ player[13][17]+"|"+ player[13][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[14][0]+"|"+ player[14][1]+"|"+ player[14][2]+"|"+ player[14][3]+"|"+ player[14][4]+"|"+ player[14][5]+"|"+ player[14][6]+"|"+ player[14][7]+"|"+ player[14][8]+"|"+ player[14][9]+"|"+ player[14][10]+"|"+ player[14][11]+"|"+ player[14][12]+"|"+ player[14][13]+"|"+ player[14][14]+"|"+ player[14][15]+"|"+ player[14][16]+"|"+ player[14][17]+"|"+ player[14][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[15][0]+"|"+ player[15][1]+"|"+ player[15][2]+"|"+ player[15][3]+"|"+ player[15][4]+"|"+ player[15][5]+"|"+ player[15][6]+"|"+ player[15][7]+"|"+ player[15][8]+"|"+ player[15][9]+"|"+ player[15][10]+"|"+ player[15][11]+"|"+ player[15][12]+"|"+ player[15][13]+"|"+ player[15][14]+"|"+ player[15][15]+"|"+ player[15][16]+"|"+ player[15][17]+"|"+ player[15][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[16][0]+"|"+ player[16][1]+"|"+ player[16][2]+"|"+ player[16][3]+"|"+ player[16][4]+"|"+ player[16][5]+"|"+ player[16][6]+"|"+ player[16][7]+"|"+ player[16][8]+"|"+ player[16][9]+"|"+ player[16][10]+"|"+ player[16][11]+"|"+ player[16][12]+"|"+ player[16][13]+"|"+ player[16][14]+"|"+ player[16][15]+"|"+ player[16][16]+"|"+ player[16][17]+"|"+ player[16][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[17][0]+"|"+ player[17][1]+"|"+ player[17][2]+"|"+ player[17][3]+"|"+ player[17][4]+"|"+ player[17][5]+"|"+ player[17][6]+"|"+ player[17][7]+"|"+ player[17][8]+"|"+ player[17][9]+"|"+ player[17][10]+"|"+ player[17][11]+"|"+ player[17][12]+"|"+ player[17][13]+"|"+ player[17][14]+"|"+ player[17][15]+"|"+ player[17][16]+"|"+ player[17][17]+"|"+ player[17][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[18][0]+"|"+ player[18][1]+"|"+ player[18][2]+"|"+ player[18][3]+"|"+ player[18][4]+"|"+ player[18][5]+"|"+ player[18][6]+"|"+ player[18][7]+"|"+ player[18][8]+"|"+ player[18][9]+"|"+ player[18][10]+"|"+ player[18][11]+"|"+ player[18][12]+"|"+ player[18][13]+"|"+ player[18][14]+"|"+ player[18][15]+"|"+ player[18][16]+"|"+ player[18][17]+"|"+ player[18][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[19][0]+"|"+ player[19][1]+"|"+ player[19][2]+"|"+ player[19][3]+"|"+ player[19][4]+"|"+ player[19][5]+"|"+ player[19][6]+"|"+ player[19][7]+"|"+ player[19][8]+"|"+ player[19][9]+"|"+ player[19][10]+"|"+ player[19][11]+"|"+ player[19][12]+"|"+ player[19][13]+"|"+ player[19][14]+"|"+ player[19][15]+"|"+ player[19][16]+"|"+ player[19][17]+"|"+ player[19][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[20][0]+"|"+ player[20][1]+"|"+ player[20][2]+"|"+ player[20][3]+"|"+ player[20][4]+"|"+ player[20][5]+"|"+ player[20][6]+"|"+ player[20][7]+"|"+ player[20][8]+"|"+ player[20][9]+"|"+ player[20][10]+"|"+ player[20][11]+"|"+ player[20][12]+"|"+ player[20][13]+"|"+ player[20][14]+"|"+ player[20][15]+"|"+ player[20][16]+"|"+ player[20][17]+"|"+ player[20][18]+"|");
+                System.out.println("-----------------------------------------------------------------------------");
+                System.out.println("|"+ player[21][0]+"|"+ player[21][1]+"|"+ player[21][2]+"|"+ player[21][3]+"|"+ player[21][4]+"|"+ player[21][5]+"|"+ player[21][6]+"|"+ player[21][7]+"|"+ player[21][8]+"|"+ player[21][9]+"|"+ player[21][10]+"|"+ player[21][11]+"|"+ player[21][12]+"|"+ player[21][13]+"|"+ player[21][14]+"|"+ player[21][15]+"|"+ player[21][16]+"|"+ player[21][17]+"|"+ player[21][18]+"*");
+                System.out.println("----------------------------------------------------------------------------*");
+                System.out.println("|"+ player[22][0]+"|"+ player[22][1]+"|"+ player[22][2]+"|"+ player[22][3]+"|"+ player[22][4]+"|"+ player[22][5]+"|"+ player[22][6]+"|"+ player[22][7]+"|"+ player[22][8]+"|"+ player[22][9]+"|"+ player[22][10]+"|"+ player[22][11]+"|"+ player[22][12]+"|"+ player[22][13]+"|"+ player[22][14]+"|"+ player[22][15]+"|"+ player[22][16]+"|"+ player[22][17]+"|"+ player[22][18]+"*");
+                System.out.println("------------------------------------------------------------------------*****");
+
+                System.out.println();
+                if (vidas > 0) {
+                    System.out.println("You have "+teleport+" teleports, "+bombs+" bombs e "+mines+" mines");
+                    System.out.println("W = up; S = down; A = left; D = right; T = teleport; Q = bomb; R = mine");
+                    System.out.println();
+                    D = entrada.readLine();
+                    cont++;
+                }
+            }
+            if (vidas > 0) {
+                System.out.println("Congratulations!! You won!!");
+            } else{
+                System.out.println("More luck next time!");
+            }
+        } catch(Exception e){
+            System.out.println("Reading mistake!");
+        }
+    }
+    public static void Mina(String[][] player, boolean[][] p1, int i, int j, int u, int v, int limy, int limx, int YOUCANTSTOP, int cont_G, int pontos){
+        double dist;
+        if (p1[i][j] && cont_G != 1) {
+            vidas--;
+            p1[i][j] = false;
+            for (int g = 0; g < limy; g++) {
+                for (int h = 0; h < limx; h++) {
+                    dist = Math.sqrt((u-g)*(u-g)+(v-h)*(v-h));
+                    if (dist <= 3) {
+                        player[g][h] = "#M#";
+                        pontos++;
+                        u = (limy-1);
+                        v = (limx-1);
+                        player[u][v] = " M ";
+                    } else{
+                        dist = Math.sqrt((i-g)*(i-g)+(j-h)*(j-h));
+                        if (dist <= 3) {
+                            player[g][h] = " * ";
+                        }
+                    }
+
+                }
+            }
+            player[i][j] = "#H#";
+        }
+        if (p1[u][v]) {
+            p1[u][v] = false;
+            pontos++;
+            for (int g = 0; g < limy; g++) {
+                for (int h = 0; h < limx; h++) {
+
+                    dist = Math.sqrt((u-g)*(u-g)+(v-h)*(v-h));
+                    if (dist <= 3) {
+                        player[g][h] = " * ";
+                    }
+                }
+            }
+        }
+        for (int k = 0; k < limy; k++) {
+            for (int l = 0; l < limx; l++) {
+                if (player[k][l].equals(" * ") || player[k][l].equals("***")) {
+                    if (p1[k][l]) {
+                        p1[k][l] = false;
+                        for (int g = 0; g < limy; g++) {
+                            for (int h = 0; h < limx; h++) {
+                                dist = Math.sqrt((k-g)*(k-g)+(l-h)*(l-h));
+                                if (dist <= 3) {
+                                    if (g == i && h == j){
+                                        vidas--;
+                                        player[g][h] = "#H#";
+                                    } else{
+                                        if (g == u && h == v) {
+                                            player[g][h] = "#M#";
+                                            pontos++;
+                                            u = (limy-1);
+                                            v = (limx-1);
+                                            player[u][v] = " M ";
+                                        }
+                                        player[g][h] = " * ";
+                                    }
+                                }
+                            }
+                        }
+                        player[k][l] = "*#*";
+                    }
+                }
+            }
+        }
+    }
 }
