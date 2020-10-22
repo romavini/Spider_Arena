@@ -67,7 +67,7 @@ class Spider_Arena{
 				double dist1 = (((i-u)*(i-u))+((j-v)*(j-v)));
 				String ops = Double.toString(dist1);
 				String ops1 = Double.toString(dist);
-				ERRO = "i: "+i+" j: "+j+" u: "+u+" v: "+v+" sqrt de: "+ops+" e fim de: "+ops1;
+				ERRO = "i: "+i+" j: "+j+" u: "+u+" v: "+v+" sqrt of: "+ops+" and end of: "+ops1;
 
 				c = u;
 				d = v;
@@ -171,12 +171,12 @@ class Spider_Arena{
 
 
 							switch (shot){
-								case 0: // Atirar para direita/centro
+								case 0: // Shoot right / center
 								for (int h = v; h < Limx; h++) {
 									P[u][h] = "***";
 								}
 								break;
-								case 1: // Atirar para direita/cima
+								case 1: // Shoot right / up
 								d = v;
 								for (int g = u; g >= 0; g--) {
 									if (d < Limx) {
@@ -188,12 +188,12 @@ class Spider_Arena{
 								}
 								d = v;
 								break;
-								case 2: // Atirar para cima
+								case 2: // Shoot up
 								for (int g = u; g >= 0; g--) {
 									P[g][v] = "***";
 								}	
 								break;
-								case 3: // Atirar para esquerda/cima
+								case 3: // Shoot left / up
 								d = v;
 								for (int g = u; g >= 0; g--) {
 									if (d >= 0) {
@@ -205,12 +205,12 @@ class Spider_Arena{
 								}
 								d = v;
 								break;
-								case 4: // Atirar para esquerda/centro
+								case 4: // Shoot left / center
 								for (int h = v; h >= 0; h--) {
 									P[u][h] = "***";
 								}
 								break;
-								case 5: // Atirar para esquerda/baixo
+								case 5: // Shoot Left / Down
 								d = v;
 								for (int g = u; g < Limy; g++) {
 									if (d >= 0) {
@@ -222,12 +222,12 @@ class Spider_Arena{
 								}
 								d = v;
 								break;
-								case 6: // Atirar para baixo
+								case 6: // Shoot down
 								for (int g = u; g < Limy; g++) {
 									P[g][v] = "***";
 								}
 								break;
-								case 7: // Atirar para direita/baixo
+								case 7: // Shoot Right / Down
 								d = v;
 								for (int g = u; g < Limy; g++) {
 									if (d < Limx) {
@@ -365,15 +365,15 @@ class Spider_Arena{
 										i =  gerador.nextInt(Limy);
 										j =  gerador.nextInt(Limx);
 										T--;
-										ERRO = "TELEPORTE!!!!";
+										ERRO = "TELEPORT!!!!";
 										cont_T = 1;
 									} else{
-										ERRO = "Voce nao tem mais teleportes";
+										ERRO = "You don't have any more teleports";
 									}
 								} else{
 									if (D.equals("Q") || D.equals("q") || D.equals("qt") || D.equals("tq")) {
 										if (B > 0) {
-											ERRO = "BOMBA!!!!!";
+											ERRO = "BOMB!!!!!";
 											B--;
 											for (int g = 0; g < Limy; g++) {
 												for (int h = 0; h < Limx; h++) {
@@ -396,17 +396,17 @@ class Spider_Arena{
 												}	
 											}
 										} else{
-											ERRO = "Voce nao tem mais bombas";
+											ERRO = "You don't have any more bombs";
 										}
 									} else{
 										if (D.equals("R") || D.equals("r")) {
 											if (G > 0) {
-												ERRO = "Mina Terrestre!!!!!";
+												ERRO = "Land Mine!!!!!";
 												G--;
 												P_1[i][j] = true;
 												cont_G = 1;
 											} else{
-												ERRO = "Voce nao tem mais minas";
+												ERRO = "You don't have any more mines";
 											}
 
 										}
@@ -426,7 +426,7 @@ class Spider_Arena{
 						P[i][j] = "*H*";
 						YOUCANTSTOP = 1;
 					}
-					ERRO = "Voce nao pode avancar nesse sentido!!";
+					ERRO = "You cannot go in that direction!!";
 				} else{
 					if (cont_T == 1) {
 						if (P[a][b] == "***") {
@@ -480,9 +480,9 @@ class Spider_Arena{
 				System.out.println(ERRO);
 				ERRO = " ";
 				System.out.println();
-				System.out.println(cont+" turnos! (faltam "+(200-cont)+" para voce ganhar)");
+				System.out.println(cont+" shifts! (missing "+(200-cont)+" for you to win)");
 				System.out.println(V+" vidas!");
-				System.out.println(Pontos+" portos! (faltam "+(10 - Pontos)+" para voce ganhar)");
+				System.out.println(Pontos+" points! (missing "+(10 - Pontos)+" for you to win)");
 				System.out.println();
 				System.out.println("-----------------------------------------------------------------------------");
 				System.out.println("|"+P[0][0]+"|"+P[0][1]+"|"+P[0][2]+"|"+P[0][3]+"|"+P[0][4]+"|"+P[0][5]+"|"+P[0][6]+"|"+P[0][7]+"|"+P[0][8]+"|"+P[0][9]+"|"+P[0][10]+"|"+P[0][11]+"|"+P[0][12]+"|"+P[0][13]+"|"+P[0][14]+"|"+P[0][15]+"|"+P[0][16]+"|"+P[0][17]+"|"+P[0][18]+"|");
@@ -534,20 +534,20 @@ class Spider_Arena{
 
 				System.out.println();
 				if (V > 0) {
-					System.out.println("Voce tem "+T+" teleportes, "+B+" bombas e "+G+" minas");
-					System.out.println("W = cima; S = baixo; A = esquerda; D = direira; T = teleporte; Q = bomba; R = mina");
+					System.out.println("You have "+T+" teleports, "+B+" bombs e "+G+" mines");
+					System.out.println("W = up; S = down; A = left; D = right; T = teleport; Q = bomb; R = mine");
 					System.out.println();
 					D = entrada.readLine();
 					cont++;
 				}
 			}
 			if (V > 0) {
-				System.out.println("Parabens!! Voce ganhou!!");
+				System.out.println("Congratulations!! You won!!");
 			} else{
-				System.out.println("Mais sorte na proxima vez!");
+				System.out.println("More luck next time!");
 			}
 		} catch(Exception e){
-			System.out.println("Erro de Leitura!");
+			System.out.println("Reading mistake!");
 		}
 	}
 	public static void Mina(String P[][], boolean P_1[][], int i, int j, int u, int v, int Limy, int Limx, int YOUCANTSTOP, int cont_G, int Pontos){
