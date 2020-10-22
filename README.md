@@ -10,8 +10,8 @@
 >>> javac Spider_Arena.java
 >>> java Spider_Arena
 ```
-
-#### Exemplo
+-------
+#### Exemple
 ![Spider Arena](Spider_Arena.gif)
 
 -------
