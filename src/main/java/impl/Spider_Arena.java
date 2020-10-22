@@ -1,5 +1,8 @@
+package impl;
+
 import java.util.Random;
 import java.io.*;
+
 class Spider_Arena{
 	static int V 			= 3;
 	static int Pontos		= 0;

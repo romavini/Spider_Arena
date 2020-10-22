@@ -1,0 +1,7 @@
+version = '0.1-SNAPSHOT'
+
+apply plugin: 'application'
+apply plugin: 'java'
+apply plugin: 'idea'
+
+mainClassName = "impl.Spider_Arena"
