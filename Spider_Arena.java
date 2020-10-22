@@ -2,11 +2,11 @@ import java.util.Random;
 import java.io.*;
 class Spider_Arena{
 	static int V 			= 3;
-	static int Pontos		= 0;
+	static int Points		= 0;
 	public static void main (String args[]){
-		BufferedReader entrada;
-		entrada = new BufferedReader(new InputStreamReader(System.in));
-		Random gerador = new Random();
+		BufferedReader bufferReader;
+		bufferReader = new BufferedReader(new InputStreamReader(System.in));
+		Random generator = new Random();
 		try{
 			int Limy = 23;
 			int Limx = 19;
@@ -27,7 +27,7 @@ class Spider_Arena{
 			int G 			= 20;
 			int cont 		= 0;
 			int prob   		= 0;
-			int dice		= 20; //dado rolado para perseguição do monstro
+			int dice		= 20; //rolled dice for monster chase
 			int YOUCANTSTOP = 0;
 			int i 			= 0;
 			int j 			= 0;
@@ -37,10 +37,10 @@ class Spider_Arena{
 			boolean start = false;
 
 			String D = " ";
-			String ERRO = " ";
+			String ERROR = " ";
 
 
-			while(V > 0 && cont <= 200 && Pontos <= 10){
+			while(V > 0 && cont <= 200 && Points <= 10){
 
 			if (cont != 0) {
 				start = true;
@@ -67,13 +67,13 @@ class Spider_Arena{
 				double dist1 = (((i-u)*(i-u))+((j-v)*(j-v)));
 				String ops = Double.toString(dist1);
 				String ops1 = Double.toString(dist);
-				ERRO = "i: "+i+" j: "+j+" u: "+u+" v: "+v+" sqrt de: "+ops+" e fim de: "+ops1;
+				ERROR = "i: "+i+" j: "+j+" u: "+u+" v: "+v+" sqrt of: "+ops+" and film of: "+ops1;
 
 				c = u;
 				d = v;
 
 				if (start == true) {	
-					prob = gerador.nextInt(27);
+					prob = generator.nextInt(27);
 					//prob = 20;
 					//System.out.println(prob+"<---"); //------------------------------------------
 					//System.out.println("u: "+u+" v: "+v+" i: "+i+" j: "+j+" mira_x: "+mira_x+" mira_y: "+mira_y);
@@ -81,7 +81,7 @@ class Spider_Arena{
 					if (prob > 11) {
 						if (B_M > 0) {
 							B_M--;
-							//prob = gerador.nextInt(8);
+							//prob = generator.nextInt(8);
 							//prob = 1;
 							if (u < i){
 								if (v < j) {
@@ -96,7 +96,7 @@ class Spider_Arena{
 											if (mira_y == 1) {
 												shot = 0;
 											} else{
-												prob = gerador.nextInt(12);
+												prob = generator.nextInt(12);
 											}
 										}
 									}
@@ -113,7 +113,7 @@ class Spider_Arena{
 											if (mira_y == 1) {
 												shot = 4;
 											} else{
-												prob = gerador.nextInt(12);
+												prob = generator.nextInt(12);
 											}
 										}
 									}
@@ -135,7 +135,7 @@ class Spider_Arena{
 												if (mira_y == 1) {
 													shot = 0;
 												} else{
-													prob = gerador.nextInt(12);
+													prob = generator.nextInt(12);
 												}
 											}
 										}
@@ -152,7 +152,7 @@ class Spider_Arena{
 													if (mira_y == 1) {
 														shot = 4;
 													} else{
-														prob = gerador.nextInt(12);
+														prob = generator.nextInt(12);
 													}
 												}
 											}
@@ -178,12 +178,12 @@ class Spider_Arena{
 
 							//System.out.println("shot--->"+shot); //------------------------------------------
 							switch (shot){
-								case 0: // Atirar para direita/centro
+								case 0: // Shoot right / center
 								for (int h = v; h < Limx; h++) {
 									P[u][h] = "***";
 								}
 								break;
-								case 1: // Atirar para direita/cima
+								case 1: // Shoot right / up
 								d = v;
 								for (int g = u; g >= 0; g--) {
 									if (d < Limx) {
@@ -195,12 +195,12 @@ class Spider_Arena{
 								}
 								d = v;
 								break;
-								case 2: // Atirar para cima
+								case 2: // Shoot up
 								for (int g = u; g >= 0; g--) {
 									P[g][v] = "***";
 								}	
 								break;
-								case 3: // Atirar para esquerda/cima
+								case 3: // Shoot left / up
 								d = v;
 								for (int g = u; g >= 0; g--) {
 									if (d >= 0) {
@@ -212,12 +212,12 @@ class Spider_Arena{
 								}
 								d = v;
 								break;
-								case 4: // Atirar para esquerda/centro
+								case 4: // Shoot left / center
 								for (int h = v; h >= 0; h--) {
 									P[u][h] = "***";
 								}
 								break;
-								case 5: // Atirar para esquerda/baixo
+								case 5: // Shoot Left / Down
 								d = v;
 								for (int g = u; g < Limy; g++) {
 									if (d >= 0) {
@@ -229,12 +229,12 @@ class Spider_Arena{
 								}
 								d = v;
 								break;
-								case 6: // Atirar para baixo
+								case 6: // Shoot down
 								for (int g = u; g < Limy; g++) {
 									P[g][v] = "***";
 								}
 								break;
-								case 7: // Atirar para direita/baixo
+								case 7: // Shoot Right / Down
 								d = v;
 								for (int g = u; g < Limy; g++) {
 									if (d < Limx) {
@@ -253,28 +253,28 @@ class Spider_Arena{
 					//prob = 20;
 					if (prob < 4) {
 						if (u < i) {	
-							if (gerador.nextInt(dice) == 0) {
+							if (generator.nextInt(dice) == 0) {
 							 	v++;
 							 } else{
 							 	u++;
 							 }
 						} else{
 							if (u > i) {
-								if (gerador.nextInt(dice) == 0) {
+								if (generator.nextInt(dice) == 0) {
 								 	v--;
 								 } else{
 								 	u--;
 								 }	
 							} else{
 								if (v < j) {	
-									if (gerador.nextInt(dice) == 0) {
+									if (generator.nextInt(dice) == 0) {
 										u++;
 									} else{
 									 	v++;
 									}
 								}
 								if (v > j) {
-									if (gerador.nextInt(dice) == 0) {
+									if (generator.nextInt(dice) == 0) {
 									 	u--;
 									 } else{
 									 	v--;
@@ -286,28 +286,28 @@ class Spider_Arena{
 
 						if (prob < 8){
 							if (v < j) {	
-								if (gerador.nextInt(dice) == 0) {
+								if (generator.nextInt(dice) == 0) {
 								 	u++;
 								 } else{
 								 	v++;
 								 }
 							} else{
 								if (v > j) {
-									if (gerador.nextInt(dice) == 0) {
+									if (generator.nextInt(dice) == 0) {
 									 	u--;
 								 	} else{
 									 	v--;
 								 	}	
 								} else{
 									if (u < i) {	
-										if (gerador.nextInt(dice) == 0) {
+										if (generator.nextInt(dice) == 0) {
 										 	v++;
 										 } else{
 										 	u++;
 										 }
 									} else{
 										if (u > i) {
-											if (gerador.nextInt(dice) == 0) {
+											if (generator.nextInt(dice) == 0) {
 											 	v--;
 											 } else{
 											 	u--;
@@ -322,8 +322,8 @@ class Spider_Arena{
 								if (T_M > 0) {
 									T_M--;
 									cont_T_M = 1;
-									u = gerador.nextInt(Limy);
-									v = gerador.nextInt(Limx);
+									u = generator.nextInt(Limy);
+									v = generator.nextInt(Limx);
 								} else {
 									prob++;
 								}
@@ -369,25 +369,25 @@ class Spider_Arena{
 							} else{
 								if (D.equals("T") || D.equals("t") || D.equals("wt") || D.equals("st") || D.equals("at") || D.equals("dt") || D.equals("tw") || D.equals("ts") || D.equals("ta") || D.equals("td")) {
 									if (T > 0) {
-										i =  gerador.nextInt(Limy);
-										j =  gerador.nextInt(Limx);
+										i =  generator.nextInt(Limy);
+										j =  generator.nextInt(Limx);
 										T--;
-										ERRO = "TELEPORTE!!!!";
+										ERROR = "TELEPORT!!!!";
 										cont_T = 1;
 									} else{
-										ERRO = "Voce nao tem mais teleportes";
+										ERROR = "You don't have any more teleports";
 									}
 								} else{
 									if (D.equals("Q") || D.equals("q") || D.equals("qt") || D.equals("tq")) {
 										if (B > 0) {
-											ERRO = "BOMBA!!!!!";
+											ERROR = "BOMB!!!!!";
 											B--;
 											for (int g = 0; g < Limy; g++) {
 												for (int h = 0; h < Limx; h++) {
 													dist = Math.sqrt((i-g)*(i-g)+(j-h)*(j-h));
 													if (dist <= 3){
 														if (P[g][h] == " M "){
-															Pontos++;
+															Points++;
 															u = (Limy-1);
 															v = (Limx-1);
 															P[u][v] = " M ";
@@ -399,17 +399,17 @@ class Spider_Arena{
 												}	
 											}
 										} else{
-											ERRO = "Voce nao tem mais bombas";
+											ERROR = "You don't have any more bombs";
 										}
 									} else{
 										if (D.equals("R") || D.equals("r")) {
 											if (G > 0) {
-												ERRO = "Mina Terrestre!!!!!";
+												ERROR = "Land Mine!!!!!";
 												G--;
 												P_1[i][j] = true;
 												cont_G = 1;
 											} else{
-												ERRO = "Voce nao tem mais minas";
+												ERROR = "You don't have any more mines.";
 											}
 
 										}
@@ -429,7 +429,7 @@ class Spider_Arena{
 						P[i][j] = "*H*";
 						YOUCANTSTOP = 1;
 					}
-					ERRO = "Voce nao pode avancar nesse sentido!!";
+					ERROR = "You cannot go in that direction!!";
 				} else{
 					if (cont_T == 1) {
 						if (P[a][b] == "***") {
@@ -473,19 +473,19 @@ class Spider_Arena{
 					v 		= (Limx-1);
 				}
 
-				Mina(P, P_1, i, j, u, v, Limy, Limx, YOUCANTSTOP, cont_G, Pontos);
+				Mine(P, P_1, i, j, u, v, Limy, Limx, YOUCANTSTOP, cont_G, Points);
 				
 					
 					
 
 				System.out.println();
 				System.out.println();
-				System.out.println(ERRO);
-				ERRO = " ";
+				System.out.println(ERROR);
+				ERROR = " ";
 				System.out.println();
-				System.out.println(cont+" turnos! (faltam "+(200-cont)+" para voce ganhar)");
-				System.out.println(V+" vidas!");
-				System.out.println(Pontos+" portos! (faltam "+(10 - Pontos)+" para voce ganhar)");
+				System.out.println(cont+" shifts! (missing "+(200-cont)+" for you to win)");
+				System.out.println(V+" lives!");
+				System.out.println(Points+" ports! (missing "+(10 - Points)+" for you to win)");
 				System.out.println();
 				System.out.println("-----------------------------------------------------------------------------");
 				System.out.println("|"+P[0][0]+"|"+P[0][1]+"|"+P[0][2]+"|"+P[0][3]+"|"+P[0][4]+"|"+P[0][5]+"|"+P[0][6]+"|"+P[0][7]+"|"+P[0][8]+"|"+P[0][9]+"|"+P[0][10]+"|"+P[0][11]+"|"+P[0][12]+"|"+P[0][13]+"|"+P[0][14]+"|"+P[0][15]+"|"+P[0][16]+"|"+P[0][17]+"|"+P[0][18]+"|");
@@ -537,23 +537,23 @@ class Spider_Arena{
 
 				System.out.println();
 				if (V > 0) {
-					System.out.println("Voce tem "+T+" teleportes, "+B+" bombas e "+G+" minas");
-					System.out.println("W = cima; S = baixo; A = esquerda; D = direira; T = teleporte; Q = bomba; R = mina");
+					System.out.println("You have "+T+" teleportes, "+B+" bombs "+G+" mines");
+					System.out.println("W = up; S = low; A = left; D = right; T = teleport; Q = bombs; R = mine");
 					System.out.println();
-					D = entrada.readLine();
+					D = bufferReader.readLine();
 					cont++;
 				}
 			}
 			if (V > 0) {
-				System.out.println("Parabens!! Voce ganhou!!");
+				System.out.println("Congratulations!! YOU WON!!");
 			} else{
-				System.out.println("Mais sorte na proxima vez!");
+				System.out.println("More luck next time!");
 			}
 		} catch(Exception e){
-			System.out.println("Erro de Leitura!");
+			System.out.println("Reading mistake!");
 		}
 	}
-	public static void Mina(String P[][], boolean P_1[][], int i, int j, int u, int v, int Limy, int Limx, int YOUCANTSTOP, int cont_G, int Pontos){
+	public static void Mine(String P[][], boolean P_1[][], int i, int j, int u, int v, int Limy, int Limx, int YOUCANTSTOP, int cont_G, int Points){
 		double dist = 0;
 		if (P_1[i][j] == true && cont_G != 1) {
 			V--;
@@ -563,7 +563,7 @@ class Spider_Arena{
 					dist = Math.sqrt((u-g)*(u-g)+(v-h)*(v-h));
 					if (dist <= 3) {
 						P[g][h] = "#M#";
-						Pontos++;
+						Points++;
 						u = (Limy-1);
 						v = (Limx-1);
 						P[u][v] = " M ";
@@ -580,7 +580,7 @@ class Spider_Arena{
 		}
 		if (P_1[u][v] == true) {
 			P_1[u][v] = false;
-			Pontos++;
+			Points++;
 			for (int g = 0; g < Limy; g++) {
 				for (int h = 0; h < Limx; h++) {
 					//System.out.println("Teste 4 g: "+g+" h: "+h); //------------------------------------------
@@ -606,7 +606,7 @@ class Spider_Arena{
 									} else{
 										if (g == u && h == v) {
 											P[g][h] = "#M#";
-											Pontos++;
+											Points++;
 											u = (Limy-1);
 											v = (Limx-1);
 											P[u][v] = " M ";
