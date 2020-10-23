@@ -1,5 +1,6 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Random;
-import java.io.*;
 
 class Spider_Arena{
     static int life = 3;
