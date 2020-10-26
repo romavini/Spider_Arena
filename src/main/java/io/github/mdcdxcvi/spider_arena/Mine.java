@@ -1,3 +1,5 @@
+package io.github.mdcdxcvi.spider_arena;
+
 public class Mine {
     public static void mine(String[][] player, boolean[][] p1, int i, int j, int u, int v, int limy, int limx, int cont_G, int points){
         double dist;
