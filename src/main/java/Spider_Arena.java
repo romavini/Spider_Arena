@@ -394,7 +394,7 @@ class Spider_Arena{
                                     } else{
                                         if (text_D.equals("R") || text_D.equals("r")) {
                                             if (mines > 0) {
-                                                error = "Land Mine!!!!!";
+                                                error = "Land src.main.java.Mine!!!!!";
                                                 mines--;
                                                 p1[i][j] = true;
                                                 cont_G = 1;
