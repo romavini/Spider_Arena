@@ -16,13 +16,9 @@ First of all, clone this project from Github. Then, check if you have maven inst
 
 #### Running the game
 
-To run the game just use the following command:
-``` shell script
->>> mvn clean compile exec:java
-```
-
 You can also generate a JAR file using the following command:
 ``` shell script
->>> mvn clean package
+>>> mvn clean package compile
+>>> java -jar target\spider_arena-1.0.jar
 ```
 The file will appear in the `target` directory.

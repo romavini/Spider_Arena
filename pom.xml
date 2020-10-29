@@ -38,7 +38,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Spider_Arena</mainClass>
+                            <mainClass>io.github.mdcdxcvi.spider_arena.Spider_Arena</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
