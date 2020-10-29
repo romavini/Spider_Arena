@@ -1,8 +1,10 @@
+package io.github.mdcdxcvi.spider_arena;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-class Spider_Arena{
+public class Spider_Arena {
     static int life = 3;
     static int points = 0;
 

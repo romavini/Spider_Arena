@@ -1,3 +1,5 @@
+package io.github.mdcdxcvi.spider_arena;
+
 public class PrintGameScreen {
 
     static void printGameScreen(String[][] player, int cont, String error) {
